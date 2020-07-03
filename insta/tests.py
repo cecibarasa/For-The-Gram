@@ -8,4 +8,10 @@ class InstaliteTestCase(TestCase):
         
     # testing instance
     def test_instance(self):
-        self.assertTrue(isinstance(self.cecilia,Instalite))    
+        self.assertTrue(isinstance(self.cecilia, Instalite))
+
+    # testing the save method
+    def test_save_method(self):
+        self.cecilia.save_instalite()
+        insta = Instalite.objects.all()
+        self.assertTrue(len(insta) > 0)        
