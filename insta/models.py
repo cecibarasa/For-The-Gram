@@ -9,11 +9,15 @@ class Instalite(models.Model):
     def __str__(self):
         return self.first_name
 
+    def save_instalite(self):
+        self.save()    
+
     class Meta:
         ordering = ['first_name']
 
 class Image(models.Model):
     name = models.CharField(max_length=30)
     image_caption = models.CharField(max_length=50)
-    likes = models.IntegerField(default=0)       
+    likes = models.IntegerField(default=0)
+    comment = models.TextField()       
 
