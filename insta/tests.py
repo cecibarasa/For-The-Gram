@@ -14,4 +14,16 @@ class InstaliteTestCase(TestCase):
     def test_save_method(self):
         self.cecilia.save_instalite()
         insta = Instalite.objects.all()
-        self.assertTrue(len(insta) > 0)        
+        self.assertTrue(len(insta) > 0)
+
+class ImageTestClass(TestCase):
+    def setUp(self):
+        self.cecilia = Instalite(first_name='Cecilia', last_name='Barasa', email='ceciheroku@gmail.com')
+        self.cecilia.save_instalite()
+
+        self.new_image = Image(name='test image', image_caption='aight', likes='2', comment='Its good')
+        self.new_image.save()
+
+    def tearDown(self):
+        Instalite.objects.all().delete()
+        Image.objects.all().delete()    

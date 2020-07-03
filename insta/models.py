@@ -19,5 +19,13 @@ class Image(models.Model):
     name = models.CharField(max_length=30)
     image_caption = models.CharField(max_length=50)
     likes = models.IntegerField(default=0)
-    comment = models.TextField()       
+    comment = models.TextField()
+
+    def save_image(self):
+        self.save()
+
+    @classmethod
+    def insta_today(cls):
+        insta = cls.objects.filter()
+        return insta              
 
