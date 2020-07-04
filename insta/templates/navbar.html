@@ -4,14 +4,47 @@
             <a class="navbar-brand " href="{% url 'instaToday' %} "> <img src="/static/image/logo.png " alt=" " style="width: 220px; height: 50px; padding-left: 100px; "></a>
 
         </div>
+        {% if user.is_authenticated %}
+        <ul>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
+                      <span class="caret"></span>
+                  </a>
+                <ul>
+
+                    <li>
+                        <a href="/accounts/password/change">Change Password</a>
+                    </li>
+                    <li>
+                        <a href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {% else %}
+        <li>
+            <a class='btn btn-default' href="/accounts/login">Login</a>
+        </li>
+
+
         <div class="navbar-collapse collapse ">
-            <ul class="nav  navbar-right " style=" width: 220px; height: 50px; padding-right: 300px;">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 300px;">
+                <li>
+                    <a href="{% url 'instaToday' %} "><img src="/static/image/home.png" alt="" style="height: 30px; width: 30px;"></a>
+                </li>
+                <li>
+                    <a href="/ "><img src="/static/image/arrow.png" alt="" style="height: 30px; width: 30px;">
+                    </a>
+                </li>
+                <li class="c">
+                    <a href="/"><img src="/static/image/compas.png" alt="" style="height: 40px; width: 40px; ">
+                    </a>
+                </li>
 
-                <a href="{% url 'instaToday' %} "> <i class="fas fa-home" style="color: black;"></i></a>
-
-                <a> <i class=" fas fa-location-arrow " style="color: rgb(250, 243, 250); outline: black;"></i></a>
-
+                <li>
+                    <a href="/ "><img src="/static/image/heart.png" alt="" style="height: 30px; width: 50px;"></li>
         </div>
+        {% endif %}
         <hr>
     </div>
 </div>

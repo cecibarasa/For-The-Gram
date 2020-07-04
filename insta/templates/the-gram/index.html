@@ -1,24 +1,26 @@
 {%extends 'the-gram/base.html'%} {% block content %} {{block.super}}
 
-<div class="container" style="position: absolute;">
+<div class="container">
 
     <!-- Looping through news   -->
     {% for image_item in insta %}
 
-    <div class="row">
+    <div class="row ">
         <!-- displaying News articles -->
-        <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <h2 class="text-center"> {{ image_item.name }} </h2>
-            <h2 class="text-center"> {{ image_item.image_caption }} </h2>
-            <h2 class="text-center"> {{ image_item.likes }} </h2>
-            <h2 class="text-center"> {{ image_item.comment }} </h2>
-        </div> -->
+        <div class=" col-md-6 ">
+            <div class="v1 ">
+                <h2 class="text-center "> {{ image_item.name }} </h2>
+                <h2 class="text-center "> {{ image_item.image_caption }} </h2>
+                <h2 class="text-center "> {{ image_item.likes }} </h2>
+                <h2 class="text-center "> {{ image_item.comment }} </h2>
+            </div>
+        </div>
 
     </div>
 
     {% empty %} {% endfor %}
+    <section style="float: right; position: fixed; ">
 
+    </section>
 </div>
-<section style="float: right;">
-
-</section> {% endblock %}
+{% endblock %}

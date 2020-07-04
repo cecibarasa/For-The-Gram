@@ -6,7 +6,7 @@
     <meta charset="utf-8"> {% if title %}
     <title><i class="fas fa-user-secret"></i>&nbsp;&nbsp;&nbsp;FOR THE GRAM - {{title}}</title>
     {% else %}
-    <title>FOR THE GRAM </title>
+    <title>Instagram </title>
     <link rel="icon" type="image/x-icon" href="/static/image/logoo.jpeg"> {% endif %} {% block styles %} {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
@@ -19,7 +19,7 @@
     {% include "navbar.html" %} {% block content %} {%endblock%} {% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/scripts.js'%}"></script>
+    <script src="{% static 'js/index.js'%}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {% bootstrap_javascript %} {% endblock %}
 </body>
