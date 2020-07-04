@@ -24,6 +24,9 @@ class Image(models.Model):
     def save_image(self):
         self.save()
 
+    def __str__(self):
+        return self.name    
+
     @classmethod
     def insta_today(cls):
         insta = cls.objects.filter()

@@ -3,6 +3,6 @@ from django.http import HttpResponse
 from .models import Image
 
 # Create your views here.
-def insta(request):
+def home(request):
     insta = Image.insta_today()
     return render(request,'the-gram/index.html',{"insta":insta})

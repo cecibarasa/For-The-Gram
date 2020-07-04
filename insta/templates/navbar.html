@@ -1,18 +1,17 @@
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"> For The Gram</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a class="navbar-brand" href="{% url 'instaToday' %}">Instagram</a></li>
-        </div>
+<div class="navbar " role=" navigation " style="background-color: white; ">
+    <div class="container-fluid ">
+        <div class="navbar-header ">
+            <a class="navbar-brand " href="{% url 'instaToday' %} "> <img src="/static/image/logo.png " alt=" " style="width: 220px; height: 50px; padding-left: 100px; "></a>
 
+        </div>
+        <div class="navbar-collapse collapse ">
+            <ul class="nav  navbar-right " style=" width: 220px; height: 50px; padding-right: 300px;">
+
+                <a href="{% url 'instaToday' %} "> <i class="fas fa-home" style="color: black;"></i></a>
+
+                <a> <i class=" fas fa-location-arrow " style="color: rgb(250, 243, 250); outline: black;"></i></a>
+
+        </div>
+        <hr>
     </div>
 </div>
