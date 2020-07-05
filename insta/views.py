@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse, get_object_or_404, HttpResponseRedirect
 from django.http import HttpResponse
-from .models import Image,Profile
+from .models import Image,Profile,Following,Comment
 from django.contrib.auth.decorators import login_required
 from .forms import ImageForm, ProfileForm, EditProfileForm, ProfileUpdateForm
 from django.contrib.auth.models import User
@@ -11,8 +11,22 @@ from django.contrib import messages
 # Create your views here.
 @login_required(login_url='/accounts/login/')        
 def home(request):
+    current_user = request.user
     insta = Image.insta_today()
-    return render(request, 'the-gram/index.html', {"insta": insta})
+    image = Image.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+    # following = Following.objects.get(current_user=request.user)
+    #followers = following.users.all()
+    comments = Comment.objects.all()
+    comment_form = CommentForm()
+    context = {
+        "image":image,
+        "comment_form":comment_form,
+        "comments":comments,
+        "users":users,
+        # "followers":followers,
+    }
+    return render(request, 'the-gram/index.html', {"insta": insta}, context)
 
 @login_required(login_url='/login')    
 def new_post(request):
@@ -57,4 +71,14 @@ def likes(request, post_id):
     else:
         post.likes.add(request.user)
         is_liked = True
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def follow(request,operation,pk):
+    new_follower = User.objects.get(pk=pk)
+    if operation == 'add':
+        Following.make_user(request.user, new_follower)
+    elif operation == 'remove':
+        Following.loose_user(request.user, new_follower)
+
+    return redirect('posts')        

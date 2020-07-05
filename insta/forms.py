@@ -1,4 +1,4 @@
-from .models import Image,Profile,User
+from .models import Image,Profile,User,Comment
 from django import forms
 
 class ImageForm(forms.ModelForm):
@@ -22,6 +22,11 @@ class EditProfileForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_photo', 'bio']        
+        fields = ['profile_photo', 'bio']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']               
         
                
