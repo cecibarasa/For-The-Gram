@@ -2,25 +2,30 @@
 
 <div class="container">
 
-    <!-- Looping through news   -->
+
     {% for image_item in insta %}
 
     <div class="row ">
-        <!-- displaying News articles -->
-        <div class=" col-md-6 ">
-            <div class="v1 ">
-                <h2 class="text-center "> {{ image_item.name }} </h2>
-                <h2 class="text-center "> {{ image_item.image_caption }} </h2>
-                <h2 class="text-center "> {{ image_item.likes }} </h2>
-                <h2 class="text-center "> {{ image_item.comment }} </h2>
-            </div>
-        </div>
 
+        <div class=" col-md-6 ">
+
+            <h2 class="text-center "> <img src="{{ image_item.photo.url }}" alt="" style="width: 300px;"></h2>
+            <p class="text-center "> {{ image_item.name }} </p>
+            <p class="text-center "> {{ image_item.image_caption }} </p>
+            <p class="text-center "> {{ image_item.likes }} </p>
+            <p class="text-center "> {{ image_item.comment }} </p>
+        </div>
     </div>
 
-    {% empty %} {% endfor %}
-    <section style="float: right; position: fixed; ">
+</div>
 
-    </section>
+{% empty %} {% endfor %}
+<section style="float: right; position: fixed; " class="col-md-6">
+    <div class="card-header">
+        By: {{image.author}}
+        <img src="{{image.author.profile.photo.url}}" alt="">
+    </div>
+
+</section>
 </div>
 {% endblock %}

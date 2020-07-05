@@ -4,10 +4,8 @@ from django import forms
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ['profile', 'likes']
-        widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-        }
+        exclude = ['comments', 'likes']
+        
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -20,5 +18,10 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_photo', 'bio']        
         
                

@@ -1,46 +1,69 @@
-{%extends 'the-gram/base.html'%} {% load static %} {% block content %} {{ block.super }}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-4">
-            <h4>@{{user.username}}<br> Bio: <br> {{user.bio}}
-            </h4>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#exampleModal">
-  Edit Profile
-</button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">{{user.username}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+{% extends 'the-gram/base.html' %} {% load static %}
+
+
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="media" style="float: left;">
+            <div class="row mt-5">
+                <div class="col-md-12 mt-5">
+                    <div class=" col-md-6 ">
+                        <img class="img-circle account-profile " src="{{ user.profile.profile_photo.url }} " alt="user " style="border-radius: 50%; width: 100px; ">
+                        <div class="media-container ">
+                            <h2 class="account-header ">{{user.username}}</h2>
+                            <!-- <p class="text-info ">{{user.email}}</p> -->
                         </div>
-                        <div class="modal-body">
-                            <form action="" id="form" method="post" enctype="multipart/form-data" class="form-control">
-                                {% csrf_token %} {{u_form}}
-                                <button type="submit" class="btn btn-sm btn-info">Update</button>
-                            </form>
+                        <p>{{user.profile.bio}}</p>
+                    </div>
+                    <div class="">
+                        <div class="col-md-6">
+                            {{user.username}}
+                            <h2 class="text-info ">Posts</h2>
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-4 "></div>
+                        <div class="col-md-4 text-center pb-5 ">
+                            <div class="container ">
+                                <div class="row ">
+                                    <div class="col-md-6 ">
+                                        <button type="button " class="btn btn-info " data-toggle="modal " data-target="#update ">Update Profile</button>
+                                        <div class="modal fade " id="update " tabindex="-1 " role="dialog " aria-labelledby="exampleModalCenterTitle " aria-hidden="true ">
+                                            <div class="modal-dialog modal-dialog-centered " role="document ">
+                                                <div class="modal-content ">
+                                                    <div class="modal-header ">
+                                                        <h5 class="modal-title " id="exampleModalCenterTitle "></h5>
+                                                        <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+                                    <span aria-hidden="true ">&times;</span>
+                                  </button>
+                                                    </div>
+                                                    <div class="modal-body ">
+                                                        <form method="post " enctype="multipart/form-data ">
+                                                            {% csrf_token %}
+                                                            <div class="form-group ">
+                                                                <legend class="border-bottom mb-4 text-center text-black mt-5 ">Update Account</legend>
+                                                                {{u_form}} {{p_form}}
+
+                                                            </div>
+                                                            <div class="form-group ">
+                                                                <input type="submit " class="btn btn-outline-info w-100 pl-2 pr-2 " value="Update ">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endblock %}
         </div>
-        <!-- <div class="col-md-4">
-            <img src="{{ user.profile.prof_image.url}}" height="200px" width="200px" class="rounded-circle" alt="profile photo"> -->
-    </div>
-    <div class="col-md-4"></div>
-</div>
-<hr>
-</div>
-<!-- <div class="card-columns container-fluid">
-    {% for pic in pics %} {% if pic.author == user %}
-    <div class="card">
-        <img src="{{pic.image.url}}" height="300vh" width="100%" alt="my images">
-    </div>
-    {% endif %} {% endfor %}
-</div> -->
-</div>
-{% endblock %}
+</body>
+
+</html>
