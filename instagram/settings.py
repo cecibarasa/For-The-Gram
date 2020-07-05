@@ -40,14 +40,15 @@ INSTALLED_APPS = [
     'insta',
     'bootstrap3',
     'django_registration',
+    'tinymce',
     'cloudinary',
 ]
 
-# cloudinary.config{
+# cloudinary.config (
 #     cloud_name = 'deabsqrhn',
 #     api_key = '535296853749665',
 #     api_secret = 'eqeQYGhHGkMhDeG7TKQ2eGsy7nQ'
-# }
+# )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'instagram',
         'USER': 'nabalayo',
-    'PASSWORD':'karitie',
+        'PASSWORD':'karitie',
     }
 }
 
@@ -133,6 +134,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = "/accounts/login/" # this is the name of the url
 LOGOUT_REDIRECT_URL = "/accounts/login/"

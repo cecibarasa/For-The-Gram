@@ -4,28 +4,6 @@
             <a class="navbar-brand " href="{% url 'instaToday' %} "> <img src="/static/image/logo.png " alt=" " style="width: 220px; height: 50px; padding-left: 100px; "></a>
 
         </div>
-        {% if user.is_authenticated %}
-        <ul>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                      <span class="caret"></span>
-                  </a>
-                <ul>
-
-                    <li>
-                        <a href="/accounts/password/change">Change Password</a>
-                    </li>
-                    <li>
-                        <a href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        {% else %}
-        <li>
-            <a class='btn btn-default' href="/accounts/login">Login</a>
-        </li>
-
 
         <div class="navbar-collapse collapse ">
             <ul class="nav navbar-nav navbar-right" style="padding-right: 300px;">
@@ -43,8 +21,23 @@
 
                 <li>
                     <a href="/ "><img src="/static/image/heart.png" alt="" style="height: 30px; width: 50px;"></li>
+                {% if user.is_authenticated %}
+                <ul>
+                    <a href="{% url 'profile' %}">{{user.username}}</a>
+                    <a href="{%url 'new-post'%}">Post</a>
+                    <ul>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                    </li>
+                </ul>
+                {% else %}
+                <li>
+                    <a class='btn btn-default' href="/accounts/login">Login</a>
+                </li>
+                {% endif %}
         </div>
-        {% endif %}
         <hr>
     </div>
 </div>

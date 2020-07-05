@@ -1,26 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from cloudinary.models import CloudinaryField
 
-# Create your models here.
-# class Instalite(models.Model):
-#     first_name = models.CharField(max_length=30)
-#     last_name = models.CharField(max_length=30)
-#     email = models.EmailField()
 
-#     def __str__(self):
-#         return self.first_name
 
-#     def save_instalite(self):
-#         self.save()    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to='pictures/')
+    bio = models.TextField()
 
-#     class Meta:
-#         ordering = ['first_name']
+    def __str__(self):
+        return self.user
 
 class Image(models.Model):
+    photo =CloudinaryField('photo')
     name = models.CharField(max_length=30)
     image_caption = models.CharField(max_length=50)
+    profile = models.ForeignKey(Profile, on_delete =models.CASCADE)
     likes = models.IntegerField(default=0)
     comment = models.TextField()
+    # author = models.ForeignKey(User, on_delete=models.CASCADE, default='1')
 
     def save_image(self):
         self.save()
@@ -32,7 +34,3 @@ class Image(models.Model):
     def insta_today(cls):
         insta = cls.objects.filter()
         return insta
-
-class Profie(models.Model):
-    profile_photo = models.ImageField(upload_to='pictures/')
-    bio = models.TextField()

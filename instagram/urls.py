@@ -29,4 +29,5 @@ urlpatterns = [
     url('accounts/', include('django_registration.backends.one_step.urls')),
     url('accounts/', include('django.contrib.auth.urls')),
     url("logout/", auth_views.LogoutView.as_view()),
+    url(r'^tinymce/', include('tinymce.urls')),
 ]
