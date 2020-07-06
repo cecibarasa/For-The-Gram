@@ -13,7 +13,7 @@ urlpatterns=[
     url(r'^posts/', views.profile, name='profile'),
     # re_path(r'^follow/(?P<operation>.+)/(?P<pk>\d+)/$', views.follow, name="follow"),
     url(r'^comment/(\d+)', views.comment, name="comment"),
-    url(r'^commenting/<image_id>', views.commenting, name="commenting"),
+    url(r'^commenting/(\d+)', views.commenting, name="commenting"),
 ]
 
 if settings.DEBUG:

@@ -36,6 +36,8 @@
                 </div>
 
                 <hr>
+                <a class="text-info ml-3" href="{% url 'commenting' image.id%}"><i class="fa fa-comment"></i>
+                    {{image.comments.all.count}} {{image.comments.all.pluralize}}</a>
                 <div class="comment mt-2">
                     <form action="/comment/{{image.id}}" method="post">
                         {% csrf_token %} {{comment_form}}
