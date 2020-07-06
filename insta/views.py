@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse, get_object_or_404, Ht
 from django.http import HttpResponse
 from .models import Image,Profile,Following,Comment
 from django.contrib.auth.decorators import login_required
-from .forms import ImageForm, ProfileForm, EditProfileForm, ProfileUpdateForm
+from .forms import ImageForm, ProfileForm, EditProfileForm, ProfileUpdateForm,CommentForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -13,21 +13,29 @@ from django.contrib import messages
 def home(request):
     current_user = request.user
     insta = Image.insta_today()
-    image = Image.objects.all()
-    users = User.objects.exclude(id=request.user.id)
-    # following = Following.objects.get(current_user=request.user)
-    #followers = following.users.all()
-    comments = Comment.objects.all()
-    comment_form = CommentForm()
-    context = {
-        "image":image,
-        "comment_form":comment_form,
-        "comments":comments,
-        "users":users,
-        # "followers":followers,
-    }
-    return render(request, 'the-gram/index.html', {"insta": insta}, context)
+    comments = Comment.get_comments()
+    users = User.objects.all()
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        img_id = request.POST['image_id']
+        if form.is_valid():
+            comment_form = form.save(commit=False)
+            comment.author = current_user
+            image = Image.get_image(img_id)
+            comment.image = image
+            comment.save()
+        return redirect(f'/#{img_id}', )
+    else:
+        form = CommentForm(auto_id=False)
 
+    param = {
+        "insta": insta,
+        "comment_form": form,
+        "comments": comments,
+        "users": users
+    }
+    return render(request, 'the-gram/index.html', param)
 @login_required(login_url='/login')    
 def new_post(request):
     current_user = request.user
@@ -64,7 +72,7 @@ def profile(request):
 
 @login_required
 def likes(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    post = Image.objects.get(pk=post_id)
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         is_liked = False

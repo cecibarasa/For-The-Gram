@@ -67,10 +67,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.image.author}, {self.user.username}'
-
-    class Meta:
-        db_table = 'comment'
-
+    @classmethod
+    def get_comments(cls):
+        comments = Comment.objects.all()
+        return comments
     def save_comment(self):
         self.save()
 
