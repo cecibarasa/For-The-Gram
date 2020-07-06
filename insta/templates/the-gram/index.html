@@ -22,12 +22,7 @@
                             <div class="modal-header">
                                 <img src="{{image.photo.url}}" class="mt-0" data-toggle="modal" data-target="#im{{image.id}}" id="myImg" class="mt-4" width="100%" alt="{{image.img_name}}">
                             </div>
-                            <div class="modal-body">
 
-                                <i class="fa fa-heart" style="color:red; font-size:40px;">{{image.likes}} likes</i>
-                                <p class="text-muted">
-                                    Caption: ~{{image.image_caption}}~
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -36,38 +31,49 @@
                 </div>
 
                 <hr>
-                <a class="text-info ml-3" href="{% url 'commenting' image.id%}"><i class="fa fa-comment"></i>
-                    {{image.comments.all.count}} {{image.comments.all.pluralize}}</a>
-                <div class="comment mt-2">
-                    <form action="/comment/{{image.id}}" method="post">
-                        {% csrf_token %} {{comment_form}}
-                        <input type="submit" class="btn btn-info" value="Comment">
-                    </form>
+                <div class="count">
+                    {% if insta.likes.id == user.id %}
+                    <a class="text-danger ml-3" href=" {% url 'likes' image.id%} "><i class="fa fa-heart "></i>{{insta.likes.count}}</a> {% else %}
+                    <a class="text-info ml-2 " href="{% url 'likes' image.id%}"><i class=" fa fa-heart "></i>
+                          {{insta.likes.count}}
+                        </a> {% endif %}
+
+                </div>
+                <div class="comment mt-2 ">
+                    <a class="text-info ml-3" href="{% url 'commenting' image.id%}"><i class="fa fa-comment"></i>
+                        {{image.comments.all.count}} {{image.comments.all.pluralize}}</a>
+                    <div class="comment mt-2">
+                        <form action="/comment/{{image.id}}" method="post">
+                            {% csrf_token %} {{comment_form}}
+                            <input type="submit" class="btn btn-info" value="Comment">
+                        </form>
+                    </div>
 
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4  ">
+
+        <div class="col-md-6 " style="float: right;">
             <a href="{% url 'profile'%} ">
                 <p class="mt-5 ">@{{user.username}}</p>
                 <img src="{{ user.profile.profile_photo.url}} " style="border-radius: 50%; width: 70px; height: 70px; " alt="profile photo ">
             </a>
             <h5>Suggestions to follow</h5>
             {% for user in users%} {% if current_user.username == user.username %}
-            <p style="display:none; ">{{user.username}}</p>
+            <p style="display:none;">{{user.username}}</p>
             {% else %}
-            <div class="form-inline ">
+            <div class="form-inline">
                 <h6>{{user.username}}</h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <img src="{{ user.profile.profile_photo.url}} " style="border-radius: 50%; width: 70px; height: 70px; " alt=" "> &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-sm ">Follow</button> {% endif %} {% endfor %}
+                <img src="{{ user.profile.profile_photo.url}}" height="100px" width="100px" class="mt-5 rounded-circle" alt=""> &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-sm">Follow</button> {% endif %} {% endfor %}
+
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 {% endblock %}

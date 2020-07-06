@@ -35,7 +35,7 @@ class Image(models.Model):
     name = models.CharField(max_length=30)
     image_caption = models.CharField(max_length=50)
     profile = models.ForeignKey(Profile, on_delete =models.CASCADE, default = '1')
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     # comment = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='1')
 
@@ -76,7 +76,7 @@ class Comment(models.Model):
 
 
 class Following(models.Model):
-    profile = models.ManyToManyField(User, related_name='friend_set')
+    users = models.ManyToManyField(User, related_name='friend_set')
     current_user = models.ForeignKey(User, related_name='owner', on_delete=models.PROTECT, null=True)
 
     @classmethod

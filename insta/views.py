@@ -61,13 +61,13 @@ def profile(request):
     return render(request, 'the-gram/profile.html', {"u_form": u_form, "p_form": p_form, "picture": picture})
 
 @login_required
-def likes(request, post_id):
-    post = Image.objects.get(pk=post_id)
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
+def likes(request, image_id):
+    insta = Image.objects.get(pk=image_id)
+    if insta.likes.filter(id=request.user.id).exists():
+        insta.likes.remove(request.user)
         is_liked = False
     else:
-        post.likes.add(request.user)
+        insta.likes.add(request.user)
         is_liked = True
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
