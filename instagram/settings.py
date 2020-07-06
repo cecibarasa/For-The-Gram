@@ -140,6 +140,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -150,3 +151,5 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/"
 REGISTRATION_OPEN= True
 ACCOUNT_ACTIVATION_DAYS = 5
+
+django_heroku.settings(locals())
