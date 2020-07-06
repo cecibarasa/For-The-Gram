@@ -109,21 +109,20 @@ def commenting(request, image_id):
     return render(request, 'the-gram/comments.html', context)
 
 def search_user(request):
-    if 'post' in request.GET and request.GET['post']:
-        search_term = request.GET["post"]
-        searched_posts = Post.search_by_author(search_term)
-        message = f'search_term'
-        author = User.objects.all()
-        context = {
-            "author":author,
-            "image":searched_image,
-            "message":message,
-
+    if 'author' in request.GET and request.GET['author']:
+        search_term = request.GET['author']
+        searched_images = Image.get_author(search_term)
+        message = f'{search_term}'
+        user = User.objects.all()
+        param = {
+            "user": user,
+            "images": searched_images,
+            "message": message
         }
-        return render(request, 'thegram/search.html', context)
+        return render(request, 'the-gram/search.html', param)
     else:
-        message = "You haven't searched for any user"
-        context = {
-            "message":message,
+        message = "search for a user"
+        param = {
+            "message": message
         }
-        return render(request, 'the-gram/search.html', context)
+        return render(request, 'the-gram/search.html', param)

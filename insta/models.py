@@ -58,6 +58,20 @@ class Image(models.Model):
     def addlikes(self):
         self.likes.count()
 
+    @classmethod
+    def search_by_username(cls,search_term):
+        insta = cls.objects.filter(author__username__icontains=search_term)
+        return insta
+        
+    def delete_image(self):
+        self.delete()
+
+    def update_image(self):
+        self.update_image()
+
+    def update_caption(self, caption):
+        self.image_caption = caption
+        self.save()    
 class Comment(models.Model):
     image = models.ForeignKey(Image, on_delete=models.CASCADE,related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -73,6 +87,7 @@ class Comment(models.Model):
         return comments
     def save_comment(self):
         self.save()
+  
 
 
 class Following(models.Model):

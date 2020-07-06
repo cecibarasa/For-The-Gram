@@ -5,15 +5,18 @@
 
         </div>
 
+        <form action="{% url 'search' %}" class="text-black" method="get">
+            {% csrf_token %}
+            <input type="text" placeholder="Search.." name="post" style="width: 100px;">
+
+            <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> </button>
+        </form>
+
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right" style="padding-right: 100px; padding-top: 30px;">
                 <li>
                     <a href="{% url 'instaToday' %} "><img src="/static/image/home.png" alt="" style="height: 22px; width: 22px;"></a>
                 </li>
-                <li><img src="/static/image/paper-plane.svg" alt="" style="height: 22px; width: 22px;"></li>
-                <li class="c"><img src="/static/image/compas.png" alt="" style="height: 30px; width: 30px; "></li>
-
-                <li><img src="/static/image/heart.svg" alt="" style="height: 22px; width: 22px;"></li>
 
                 {% if user.is_authenticated %}
 

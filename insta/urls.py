@@ -14,7 +14,7 @@ urlpatterns=[
     url(r'^follow(\d+)', views.follow, name="follow"),
     url(r'^comment/(\d+)', views.comment, name="comment"),
     url(r'^commenting/(\d+)', views.commenting, name="commenting"),
-    url(r'^search/', views.search_user, name="search"),
+    url(r'^search/$', views.search_user, name="search"),
 ]
 
 if settings.DEBUG:
