@@ -14,8 +14,6 @@ def home(request):
     current_user = request.user
     insta = Image.insta_today()
     users = User.objects.exclude(id=request.user.id)
-    # following = Following.objects.get(current_user=request.user)
-    # followers = following.users.all()
     comments = Comment.objects.all()
     comment_form = CommentForm()
     context = {
@@ -57,7 +55,7 @@ def profile(request):
         u_form = EditProfileForm(instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
-                                   instance=request.user.profile)
+                                   instance=request.user)
     return render(request, 'the-gram/profile.html', {"u_form": u_form, "p_form": p_form, "picture": picture})
 
 @login_required

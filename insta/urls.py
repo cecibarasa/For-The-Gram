@@ -8,7 +8,7 @@ from django.urls import path, re_path
 urlpatterns=[
     url('^$', views.home, name='instaToday'),
     url(r'^new/post$', views.new_post, name='new-post'),
-    url(r'^profile$', views.profile, name='profile'),
+    url(r'^profile/$', views.profile, name='profile'),
     url(r'^likes/(\d+)', views.likes, name="likes"),
     url(r'^posts/', views.profile, name='profile'),
     url(r'^follow(\d+)', views.follow, name="follow"),
