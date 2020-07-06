@@ -13,29 +13,19 @@ from django.contrib import messages
 def home(request):
     current_user = request.user
     insta = Image.insta_today()
-    comments = Comment.get_comments()
-    users = User.objects.all()
-    current_user = request.user
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        img_id = request.POST['image_id']
-        if form.is_valid():
-            comment_form = form.save(commit=False)
-            comment.author = current_user
-            image = Image.get_image(img_id)
-            comment.image = image
-            comment.save()
-        return redirect(f'/#{img_id}', )
-    else:
-        form = CommentForm(auto_id=False)
-
-    param = {
-        "insta": insta,
-        "comment_form": form,
-        "comments": comments,
-        "users": users
+    users = User.objects.exclude(id=request.user.id)
+    # following = Following.objects.get(current_user=request.user)
+    # followers = following.users.all()
+    comments = Comment.objects.all()
+    comment_form = CommentForm()
+    context = {
+        "insta":insta,
+        "comment_form":comment_form,
+        "comments":comments,
+        "users":users,
+        
     }
-    return render(request, 'the-gram/index.html', param)
+    return render(request,'the-gram/index.html', context)
 @login_required(login_url='/login')    
 def new_post(request):
     current_user = request.user
@@ -52,7 +42,7 @@ def new_post(request):
     
 @login_required(login_url='/login')
 def profile(request):
-    picture = Image.get_photo()
+    picture = Image.objects.all()
     if request.method == 'POST':
         u_form = EditProfileForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -89,4 +79,31 @@ def follow(request,operation,pk):
     elif operation == 'remove':
         Following.loose_user(request.user, new_follower)
 
-    return redirect('posts')        
+    return redirect('/')
+
+@login_required
+def comment(request, image_id):
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            insta = Image.get_photo(image_id)
+            comment.image = insta
+            comment.save()
+            return redirect('/')
+    else:
+        comment_form = CommentForm()
+    context = {
+        "comment_form":comment_form,
+    }
+    return render(request, 'the-gram/index.html', context)
+
+
+@login_required
+def commenting(request, image_id):
+    insta = Image.objects.get(pk=image_id)
+    context ={
+        "insta":insta,
+    }
+    return render(request, 'the-gram/comments.html', context)

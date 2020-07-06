@@ -15,7 +15,24 @@
                 <div class="panel-body">
 
                     <form action="/accounts/register/" method="post">
-                        {% csrf_token %} {% bootstrap_form form %}
+                        {% csrf_token %}
+                        <div class="col-25">
+                            <label for="username">username</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="username" name="username" placeholder="Your username..">
+                        </div> <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="email" required>
+
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+
+                        <label for="psw-repeat"><b>Repeat Password</b></label>
+                        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+                        <label>
+                          <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+                        </label>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
                         </div>

@@ -36,7 +36,7 @@ class Image(models.Model):
     image_caption = models.CharField(max_length=50)
     profile = models.ForeignKey(Profile, on_delete =models.CASCADE, default = '1')
     likes = models.IntegerField(default=0)
-    comment = models.TextField()
+    # comment = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='1')
 
     def save_image(self):
@@ -51,15 +51,15 @@ class Image(models.Model):
         return insta
 
     @classmethod
-    def get_photo(cls):
-        insta = cls.objects.filter()
+    def get_photo(cls, image_id):
+        insta = cls.objects.get(id =image_id)
         return insta
 
     def addlikes(self):
         self.likes.count()
 
 class Comment(models.Model):
-    profile = models.ForeignKey(Image, on_delete=models.CASCADE,related_name='comments')
+    image = models.ForeignKey(Image, on_delete=models.CASCADE,related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
 

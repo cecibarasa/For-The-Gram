@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_registration',
     'tinymce',
     'cloudinary',
+    'crispy_forms',
     
 ]
 
@@ -140,6 +141,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOGIN_URL = "/accounts/login/" # this is the name of the url
 LOGOUT_REDIRECT_URL = "/accounts/login/"

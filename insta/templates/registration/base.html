@@ -1,23 +1,27 @@
-{% load bootstrap3 %} {% load static %}
+{% load bootstrap3 %} {% load static%}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> {%if title%}
+    <meta charset="utf-8"> {% if title %}
+    <title><i class="fas fa-user-secret"></i>&nbsp;&nbsp;&nbsp;FOR THE GRAM - {{title}}</title>
+    {% else %}
+    <title>Instagram </title>
+    <link rel="icon" type="image/x-icon" href="/static/image/logoo.jpeg"> {% endif %} {% block styles %} {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
-    <title>{{title}}</title>
-
-    {%endif%} {% block styles %} {% bootstrap_css %} {% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"> {% endblock %}
 
 </head>
 
 <body>
-
-    {% block content %} {%endblock%} {% block scripts %}
+    {% include "navbar.html" %} {% block content %} {%endblock%} {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/index.js'%}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {% bootstrap_javascript %} {% endblock %}
-
 </body>
 
 </html>
