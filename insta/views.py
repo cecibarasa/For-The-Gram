@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,HttpResponse, get_object_or_404, HttpResponseRedirect
 from django.http import HttpResponse
-from .models import Image,Profile,Following,Comment
+from .models import Image,Profile,Following,Comment, User
 from django.contrib.auth.decorators import login_required
 from .forms import ImageForm, ProfileForm, EditProfileForm, ProfileUpdateForm,CommentForm
 from django.contrib.auth.models import User
@@ -40,12 +40,12 @@ def new_post(request):
     
 @login_required(login_url='/login')
 def profile(request):
-    picture = Image.objects.all()
+    insta = Image.objects.all()
     if request.method == 'POST':
         u_form = EditProfileForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
-                                   instance=request.user.profile)
+                                   instance=request.user)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -56,7 +56,7 @@ def profile(request):
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user)
-    return render(request, 'the-gram/profile.html', {"u_form": u_form, "p_form": p_form, "picture": picture})
+    return render(request, 'the-gram/profile.html', {"u_form": u_form, "p_form": p_form, "insta": insta})
 
 @login_required
 def likes(request, image_id):

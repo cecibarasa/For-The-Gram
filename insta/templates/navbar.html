@@ -21,7 +21,7 @@
                 {% if user.is_authenticated %}
 
                 <li>
-                    <a href="{% url 'profile' %}"><img class="rounded-circle account-profile" src="{{ user.profile.profile_photo.url }}" alt="user" style="border-radius: 50%; width: 30px; height: 30px;"></a>
+                    <a href="/profile"><img class="rounded-circle account-profile" src="{{ user.profile.profile_photo.url }}" alt="user" style="border-radius: 50%; width: 30px; height: 30px;"></a>
                 </li>
                 <li> <a href="{%url 'new-post'%}">Post</a></li>
 

@@ -113,6 +113,7 @@ ENV/
 env.bak/
 venv.bak/
 virtual/
+.env
 
 # Spyder project settings
 .spyderproject
