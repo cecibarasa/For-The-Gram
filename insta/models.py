@@ -4,6 +4,7 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.models import CloudinaryField
 from django.core.exceptions import ObjectDoesNotExist
+import datetime as dt
 
 
 
@@ -36,14 +37,17 @@ class Image(models.Model):
     image_caption = models.CharField(max_length=50)
     profile = models.ForeignKey(Profile, on_delete =models.CASCADE, default = '1')
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
-    # comment = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='1')
 
     def save_image(self):
         self.save()
 
     def __str__(self):
-        return f'{self.profile.user.username}'  
+        return f'{self.profile.user.username}'
+
+    class Meta:
+        ordering = ['pub_date']      
 
     @classmethod
     def insta_today(cls):

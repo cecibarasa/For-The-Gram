@@ -39,7 +39,7 @@
 <div class="card-columns container-fluid">
     {% for image in insta %} {% if image.author == user %}
     <div class="card">
-        <img src="{{image.profile.photo.url}}" height="300vh" width="100%" alt="my images">
+        <img src="{{image.photo.url}}" height="300vh" width="50%" alt="my images">
     </div>
     {% endif %} {% endfor %}
 </div>
