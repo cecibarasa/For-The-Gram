@@ -1,3 +1,5 @@
+[![codebeat badge](https://codebeat.co/badges/db89e8c7-b23a-4b9b-8ceb-f5f157ca602d)](https://codebeat.co/projects/github-com-cecibarasa-for-the-gram-master)
+
 ### For The Gram
 
 ### By Cecilia Barasa
