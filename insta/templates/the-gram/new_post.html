@@ -1,9 +1,0 @@
-{% extends 'the-gram/base.html' %} {% block content %}
-<div class="container">
-    <h4>Post a pic</h4>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{form}}
-        <button type="submit" class="btn btn-success">Save</button>
-    </form>
-</div>
-{% endblock %}

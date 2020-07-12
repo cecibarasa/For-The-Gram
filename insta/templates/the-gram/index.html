@@ -1,79 +1,111 @@
-{% extends 'the-gram/base.html'%} {% load crispy_forms_tags %}{% block content %} {{ block.super }}
-<div class="container">
-    <h1></h1>
+{% extends 'the-gram/layout.html' %} {% load static %} {% load crispy_forms_tags %} {% block content %}
+<div class="container" style="margin-top:7%;">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-5">
-                {% for image in insta %}
-                <div class="card-header">
-                    By: {{image.author}}
-                    <img src="{{image.author.profile.photo.url}}" alt="">
-                </div>
-                <!-- Image trigger modal -->
-                <img src="{{image.photo.url}}" class="mt-0" data-toggle="modal" data-target="#im{{image.id}}" id="myImg" class="mt-4" width="100%" alt="{{image.name}}">
-                <!-- Modal -->
-                <div class="modal fade" id="im{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <div class="row">
+                <button class="btn btn-sm btn-outline-primary ml-4 mb-3" data-toggle="modal" data-target="#imageUpload">
+                    Upload Image
+                </button>
+                <div class="modal fade" id="imageUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <h5 class="modal-title text-center" id="exampleModal3Label">{{image.image_name}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                             <div class="modal-header">
-                                <img src="{{image.photo.url}}" class="mt-0" data-toggle="modal" data-target="#im{{image.id}}" id="myImg" class="mt-4" width="100%" alt="{{image.img_name}}">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Image Upload</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <div class="modal-body">
+                                <form action="" method="post" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %} {{ form|crispy }}
+                                    <button class="btn btn-sm btn-success">Upload</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <hr>
-                <div class="count">
-                    {% if insta.likes.id == user.id %}
-                    <a class="text-danger ml-3" href=" {% url 'likes' image.id%} "><i class="fa fa-heart "></i>{{insta.likes.count}}</a> {% else %}
-                    <a class="text-info ml-2 " href="{% url 'likes' image.id%}"><i class=" fa fa-heart "></i>
-                          {{insta.likes.count}}
-                        </a> {% endif %}
-
+            {% for image in images %}
+            <div class="card mb-4">
+                <div class="card-title">
+                    <img src="{{image.user.profile_picture.url}}" class="rounded-circle border ml-3 mt-2  mr-3" alt="{{image.user.user.username}}" width="35" height="35">
+                    <a href="{% url 'user_profile' image.user.user.username  %}" class="mt-4 user">{{image.user.user.username|title}}</a>
                 </div>
-                <div class="comment mt-2 ">
-                    <a class="text-info ml-3" href="{% url 'commenting' image.id%}"><i class="fa fa-comment"></i>
-                        {{image.comments.all.count}} {{image.comments.all.pluralize}}</a>
-                    <div class="comment mt-2">
-                        <form action="/comment/{{image.id}}" method="post">
-                            {% csrf_token %} {{comment_form}}
-                            <input type="submit" class="btn btn-info" value="Comment">
-                        </form>
+                <div class="card-body mb-4">
+                    <a href="{% url 'comment' image.id %}">
+                        <div class="card-text" style="background-image:url('{{ image.image.url }}'); background-size: contain;position: sticky">
+                            <img src="{{image.image.url}}" style="width: 100%;" class=" card-img " />
+                        </div>
+                    </a>
+                </div>
+                <div class="iconic ml-2 ">
+                    <button class="btn btn-sm " type="submit " name="image_id " value="{{image.id}} ">
+                        <a href="{% url 'comment' image.id %} "><i class="far fa-heart hearticon mx-auto "
+                                                                  aria-hidden="true " style=" "></i></a>
+                    </button>
+                    <button class="btn btn-sm " type="submit "><a href="{% url 'comment' image.id %} "><i
+                            class="far fa-comment hearticon mx-auto " aria-hidden="true "></i>
+                    </a></button>
+                </div>
+                <span class="ml-4 mb-1 "><strong>{{image.likes.count}} like{{image.likes.count|pluralize}}</strong></span>
+                <span class="text-secondary ml-4 viewall "><a href="{% url 'comment' image.id %} ">view all {{image.comments.count}} comment{{image.comments.count|pluralize}}</a></span>
+                <div class="allcomments mb-4 ">
+                    {% for comment in image.comments.all|slice:'2' %}
+                    <div class="comment ">
+                        <div class="ml-4 "><strong>{{ comment.user.user.username }}</strong> <span class="text-secondary ">{{ comment.comment }}</span>
+                        </div>
                     </div>
-
-                    {% endfor %}
+                    {% empty %} {% endfor %}
+                    <p class="text-secondary ml-4 ">{{image.created|timesince}}</p>
                 </div>
             </div>
+            {% endfor %}
         </div>
-
-        <div class="col-md-6 " style="float: right;">
-            <a href="{% url 'profile'%} ">
-                <p class="mt-5 ">@{{user.username}}</p>
-                <img src="{{ user.profile.profile_photo.url}} " style="border-radius: 50%; width: 70px; height: 70px; " alt="profile photo ">
-            </a>
-            <h5>Suggestions to follow</h5>
-            {% for user in users%} {% if current_user.username == user.username %}
-            <p style="display:none;">{{user.username}}</p>
-            {% else %}
-            <div class="form-inline">
-                <h6>{{user.username}}</h6>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                <img src="{{ user.profile.profile_photo.url}}" height="100px" width="100px" class="mt-5 rounded-circle" alt=""> &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-sm">Follow</button> {% endif %} {% endfor %}
-
+        <div class="col-md-4 mt-4 userinfo ">
+            <div class="row ">
+                <div class="col-md-3 ml-2 ">
+                    <img class="rounded-circle user-img " src="{{ user.profile.profile_picture.url }} " style="width: 50%;">
+                </div>
+                <div class="col-md-6 mt-4 user-detail ">
+                    <span class=" text-secondary "><a
+                            href="{% url 'user_profile' user.username %} ">{{ user.username }}</a></span> <br>
+                    <span class=" inname ">{{ user.profile.name }}</span>
+                </div>
             </div>
+            <div class="row ">
+                <div class="col-md-10 ">
+                    <div class="card mt-4 mr-2 ml-2 ">
+                        <div class="card-title text-secondary mt-2 mr-2 ml-2 ">Suggestions</div>
+                        {% for user in users %}
+                        <div class="container ">
+                            <div class="row ">
+                                <div class="col-md-2 mr-3 mt-1 mb-2 ">
+                                    <img class="rounded-circle " src="{{ user.profile.profile_picture.url }} " width="45px " height="45px ">
+                                </div>
+                                <div class="col-md-6 mr-2 mt-2 ">
+                                    <span><a href="{% url 'user_profile' user.username %} ">{{user.username}}</a></span>
+                                </div>
+                                <div class="col-md-4 ">
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-2 "></div>
+            </div>
+
+
         </div>
+
     </div>
-</div>
 
+</div>
 
 {% endblock %}

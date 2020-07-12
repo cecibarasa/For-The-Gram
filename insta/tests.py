@@ -1,29 +1,42 @@
 from django.test import TestCase
-from .models import Instalite,Image
-# Create your tests here.
 
-class InstaliteTestCase(TestCase):
+from .models import Profile, Post
+from django.contrib.auth.models import User
+
+
+class TestProfile(TestCase):
     def setUp(self):
-        self.cecilia = Instalite(first_name='Cecilia', last_name='Barasa', email='ceciheroku@gmail.com')
-        
-    # testing instance
+        self.user = User(username='charles')
+        self.user.save()
+
+        self.profile_test = Profile(id=1, name='image', profile_picture='default.jpg', bio='this is a test profile',
+                                    user=self.user)
+
     def test_instance(self):
-        self.assertTrue(isinstance(self.cecilia, Instalite))
+        self.assertTrue(isinstance(self.profile_test, Profile))
 
-    # testing the save method
-    def test_save_method(self):
-        self.cecilia.save_instalite()
-        insta = Instalite.objects.all()
-        self.assertTrue(len(insta) > 0)
+    def test_save_profile(self):
+        self.profile_test.save_profile()
+        after = Profile.objects.all()
+        self.assertTrue(len(after) > 0)
 
-class ImageTestClass(TestCase):
+
+class TestPost(TestCase):
     def setUp(self):
-        self.cecilia = Instalite(first_name='Cecilia', last_name='Barasa', email='ceciheroku@gmail.com')
-        self.cecilia.save_instalite()
+        self.profile_test = Profile(name='charles', user=User(username='mikey'))
+        self.profile_test.save()
 
-        self.new_image = Image(name='test image', image_caption='aight', likes='2', comment='Its good')
-        self.new_image.save()
+        self.image_test = Post(image='default.png', name='test', caption='default test', user=self.profile_test)
 
-    def tearDown(self):
-        Instalite.objects.all().delete()
-        Image.objects.all().delete()    
+    def test_insatance(self):
+        self.assertTrue(isinstance(self.image_test, Post))
+
+    def test_save_image(self):
+        self.image_test.save_image()
+        images = Post.objects.all()
+        self.assertTrue(len(images) > 0)
+
+    def test_delete_image(self):
+        self.image_test.delete_image()
+        after = Profile.objects.all()
+        self.assertTrue(len(after) < 1)

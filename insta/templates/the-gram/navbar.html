@@ -1,0 +1,56 @@
+<div class="navbar fixed-top">
+    <nav class="container">
+        <span class="navbar-brand mb-0 h1">
+          <a href="/">
+              <div id="brand" class="instaicon logo d-none d-sm-block"></div>
+              <div class="instaicon mainicon d-block d-sm-none"></div>
+          </a>
+      </span>
+        <span class="pull-right">
+            <div class="instaicon disc"></div>
+            <div class="instaicon like"></div>
+            <a href="{% url 'profile' user.username %}" class="instaicon pers"></a>
+        </span>
+    </nav>
+</div>
+
+<div class="navbar " role=" navigation " style="background-color: white; ">
+    <div class="container-fluid ">
+        <div class="navbar-header ">
+            <a class="navbar-brand " href="/ "> <img src="/static/image/logo.png " alt=" " style="width: 220px; height: 50px; padding-left: 100px; "></a>
+
+        </div>
+
+        <form class="mb-0 h1 ml-auto mr-auto" id="searchform" action="{% url 'search' %}">
+            <input name="search_user" autocomplete="off" id="searching" class="form-control d-none d-md-block" placeholder="Search">
+            <i class="spinner "></i>
+        </form>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 100px; padding-top: 30px;">
+                <li>
+                    <a href="/"><img src="/static/image/home.png" alt="" style="height: 22px; width: 22px;"></a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <span class="pull-right">
+                    <div class="instaicon disc"></div>
+                    <div class="instaicon like"></div>
+                    <a href="{% url 'profile' user.username %}" class="instaicon pers">{{user.username}}</a>
+                </span>
+
+                <li>
+                    <a href="/profile"><img class="rounded-circle account-profile" src="{{ user.profile.profile_photo.url }}" alt="user" style="border-radius: 50%; width: 30px; height: 30px;"></a>
+                </li>
+
+
+                <li> <a href="/logout">Logout</a></li>
+                {% else %}
+                <li>
+                    <a class='btn btn-default' href="/accounts/register">Sign up</a>
+                </li>
+                {% endif %}
+        </div>
+        <hr>
+    </div>
+</div>
