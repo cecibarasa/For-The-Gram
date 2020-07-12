@@ -7,6 +7,9 @@
 ## Description
 An instagam clone
 
+### Preview
+![](Screens.png)
+
 ### User stories
 # As a user user you should be able to;
 * Sign in to the application to start using.
