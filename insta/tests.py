@@ -6,11 +6,10 @@ from django.contrib.auth.models import User
 
 class TestProfile(TestCase):
     def setUp(self):
-        self.user = User(username='charles')
+        self.user = User(username='barasa')
         self.user.save()
 
-        self.profile_test = Profile(id=1, name='image', profile_picture='default.jpg', bio='this is a test profile',
-                                    user=self.user)
+        self.profile_test = Profile(id=1, name='image', profile_picture='default.jpg', bio='i am tired',user=self.user)
 
     def test_instance(self):
         self.assertTrue(isinstance(self.profile_test, Profile))
@@ -23,10 +22,10 @@ class TestProfile(TestCase):
 
 class TestPost(TestCase):
     def setUp(self):
-        self.profile_test = Profile(name='charles', user=User(username='mikey'))
+        self.profile_test = Profile(name='barasa', user=User(username='cecibarasa'))
         self.profile_test.save()
 
-        self.image_test = Post(image='default.png', name='test', caption='default test', user=self.profile_test)
+        self.image_test = Post(image='default.png', name='test', caption='random', user=self.profile_test)
 
     def test_insatance(self):
         self.assertTrue(isinstance(self.image_test, Post))
