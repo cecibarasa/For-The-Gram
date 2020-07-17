@@ -4,8 +4,8 @@
         <div class="col-md-1"></div>
         <div class="col-md-7">
             <div class="row">
-                <button class="btn btn-sm btn-outline-primary ml-4 mb-3" data-toggle="modal" data-target="#imageUpload">
-                    Upload Image
+                <button class="btn btn-sm btn-outline-primary ml-4 mb-3" data-toggle="modal" data-target="#imageUpload" style="float: right;">
+                        Post
                 </button>
                 <div class="modal fade" id="imageUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -68,7 +68,7 @@
         <div class="col-md-4 mt-4 userinfo ">
             <div class="row ">
                 <div class="col-md-3 ml-2 ">
-                    <img class="rounded-circle user-img " src="{{ user.profile.profile_picture.url }} " style="width: 50%; height: 70%;">
+                    <img class="rounded-circle user-img " src="{{ user.profile.profile_picture.url }} " style="width: 50%; height: 50%;">
                 </div>
                 <div class="col-md-6 mt-4 user-detail ">
                     <span class=" text-secondary "><a

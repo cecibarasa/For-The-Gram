@@ -185,10 +185,10 @@ def search_profile(request):
             'results': results,
             'message': message
         }
-        return render(request, 'the-gram/results.html', params)
+        return render(request, 'the-gram/search.html', params)
     else:
         message = "You haven't searched for any image category"
-    return render(request, 'the-gram/results.html', {'message': message})
+    return render(request, 'the-gram/search.html', {'message': message})
 
 
 def unfollow(request, to_unfollow):
